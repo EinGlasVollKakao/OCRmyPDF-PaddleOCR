@@ -1,0 +1,34 @@
+on: [push]
+
+jobs:
+  docker:
+    runs-on: docker
+    container:
+      image: alpine:latest
+    steps:
+      - name: Install docker & git & node
+        run: apk add git nodejs docker
+      - name: Set up Docker Buildx
+        uses: https://code.forgejo.org/docker/setup-buildx-action@v3
+      - name: Login to registry
+        uses: https://code.forgejo.org/docker/login-action@v3
+        with:
+          registry: git.montafonerbahn.at
+          username: ${{ github.actor }}
+          password: ${{ secrets.REGISTRY_TOKEN }}
+      - name: Build and push - Commit
+        if: github.ref_type != 'tag'
+        uses: https://code.forgejo.org/docker/build-push-action@v6
+        with:
+          push: true
+          tags: git.montafonerbahn.at/mbs-org/ocrmypdf-paddleocr:c-${{ github.sha }}
+          cache-from: type=registry,ref=git.montafonerbahn.at/mbs-org/ocrmypdf-paddleocr:buildcache
+          cache-to: type=registry,ref=git.montafonerbahn.at/mbs-org/ocrmypdf-paddleocr:buildcache,mode=max,image-manifest=true,oci-mediatypes=true
+      - name: Build and push - Tag/Release
+        if: github.ref_type == 'tag'
+        uses: https://code.forgejo.org/docker/build-push-action@v6
+        with:
+          push: true
+          tags: git.montafonerbahn.at/mbs-org/ocrmypdf-paddleocr:${{ github.ref_name }},git.montafonerbahn.at/mbs-org/ocrmypdf-paddleocr:latest
+          cache-from: type=registry,ref=git.montafonerbahn.at/mbs-org/ocrmypdf-paddleocr:buildcache
+          cache-to: type=registry,ref=git.montafonerbahn.at/mbs-org/ocrmypdf-paddleocr:buildcache,mode=max,image-manifest=true,oci-mediatypes=true

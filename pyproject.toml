@@ -1,0 +1,23 @@
+[project]
+name = "ocrmypdf_paddleocr"
+version = "0.2.0"
+description = "Plugin to run PaddleOCR with the EasyOCR engine"
+authors = [{ name = "EinGlasVollKakao", email = "einglasvollkakao@vivaldi.net" }]
+dependencies = [
+  "paddlepaddle~=3.0",
+  "paddleocr~=2.10.0",
+  "ocrmypdf~=16.10",
+  "setuptools~=78.1"
+]
+requires-python = ">=3.10"
+readme = "README.md"
+
+[project.optional-dependencies]
+test = ["pytest>=8.3.5"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.entry-points.ocrmypdf]
+paddleocr = "ocrmypdf_paddleocr"

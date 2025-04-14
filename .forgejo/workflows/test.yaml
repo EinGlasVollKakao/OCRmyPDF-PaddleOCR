@@ -1,0 +1,29 @@
+on: [push, pull_request]
+
+jobs:
+  docker:
+    runs-on: docker
+    container:
+      image: ghcr.io/astral-sh/uv:python3.13-bookworm-slim
+    steps:
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y \
+            nodejs \
+            git \
+            tesseract-ocr \
+            ghostscript \
+            libgomp1 \
+            libgl1 \
+            libglib2.0-0 \
+            ccache
+
+      - uses: actions/checkout@v4
+
+      - name: Install package
+        run: |
+          uv pip install --system .[test]
+
+      - name: Test
+        run: python -m pytest tests/
