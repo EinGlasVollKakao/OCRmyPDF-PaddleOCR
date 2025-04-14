@@ -1,0 +1,40 @@
+name: Test PaddleOCR
+
+on:
+  push:
+    paths-ignore:
+      - README*
+  pull_request:
+
+jobs:
+  test:
+    name: Test on Ubuntu with Python 3.13
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v4
+        name: Setup python
+        with:
+          python-version: 3.13
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y \
+            tesseract-ocr \
+            ghostscript \
+            libgomp1 \
+            libgl1 \
+            libglib2.0-0 \
+            ccache
+
+      - name: Install python package
+        run: |
+          python -m pip install --prefer-binary .[test]
+
+      - name: Test
+        run: |
+          python -m pytest tests/
