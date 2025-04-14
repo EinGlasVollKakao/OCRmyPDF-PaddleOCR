@@ -25,7 +25,7 @@ needs Tesseract for some tasks.
 ## Additional parameters
 
 - **`--paddleocr-no-rotation`**  
-  Disables rotating text to better match the input image
+  Disables rotating text based on PaddleOCRs bounding boxes
 
 - **`--paddleocr-model-dir`**  
   You can use this option to specify custom or pre-downloaded models directly.  
