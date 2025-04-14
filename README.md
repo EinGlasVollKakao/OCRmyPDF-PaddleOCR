@@ -24,10 +24,10 @@ needs Tesseract for some tasks.
 
 ## Additional parameters
 
-- **`--paddleocr-no-rotation`**
+- **`--paddleocr-no-rotation`**  
   Disables rotating text to better match the input image
 
-- **`--paddleocr-model-dir`**
+- **`--paddleocr-model-dir`**  
   You can use this option to specify custom or pre-downloaded models directly.  
   It expects three subdirectories - `det`, `rec` & `cls` - with the respective
   extracted model inside it.
@@ -41,27 +41,27 @@ needs Tesseract for some tasks.
   > env variable.  
   > See [here](https://paddlepaddle.github.io/PaddleOCR/main/en/quick_start.html#1-install-paddlepaddle)
 
-- **`--paddleocr-det-dir`**
+- **`--paddleocr-det-dir`**  
   Specify a custom detection model directory.  
   Overwrites `--paddleocr-model-dir`, if it is also set.
 
-- **`--paddleocr-rec-dir`**
+- **`--paddleocr-rec-dir`**  
   Specify a custom recognition model directory.  
   Overwrites `--paddleocr-model-dir`, if it is also set.
 
-- **`--paddleocr-cls-dir`**
+- **`--paddleocr-cls-dir`**  
   Specify a custom classification model directory.  
   Overwrites `--paddleocr-model-dir`, if it is also set.
 
 ### Debug options
 
-- **`--paddleocr-debug-hocr`**
+- **`--paddleocr-debug-hocr`**  
   Stores a hOCR file alongside the output file
 
-- **`--paddleocr-degug-png`**
+- **`--paddleocr-degug-png`**  
   Generates an image with bounding boxes
 
-- **`--paddleocr-debug-txt`**
+- **`--paddleocr-debug-txt`**  
   Stores the detected text in a textfile
   Writes each detection on a new line
 
